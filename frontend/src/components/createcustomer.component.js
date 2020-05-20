@@ -1,18 +1,21 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Base64 } from 'js-base64';
 
-export default class CreateUser extends Component {
+export default class CreateCustomer extends Component {
     
     constructor(props) {
         super(props);
 
         this.state = {
             username: '',
-            email: ''
+            email: '',
+            password: ''
         }
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
     
@@ -24,12 +27,18 @@ export default class CreateUser extends Component {
         this.setState({ email: event.target.value });
     }
 
+    onChangePassword(event) {
+        this.setState({ password: event.target.value });
+    }
+
     onSubmit(e) {
         e.preventDefault();
 
         const newUser = {
             username: this.state.username,
-            email: this.state.email
+            email: this.state.email,
+            password: Base64.encode(this.state.password),
+            cclass: false
         }
 
         axios.post('http://localhost:4000/users/add', newUser)
@@ -37,13 +46,15 @@ export default class CreateUser extends Component {
 
         this.setState({
             username: '',
-            email: ''
+            email: '',
+            password: ''
         });
     }
 
     render() {
         return (
             <div>
+                <h1>Create new customer</h1>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label>
@@ -55,10 +66,18 @@ export default class CreateUser extends Component {
                     </div>
                     <div className="form-group">
                         <label>Email: </label>
-                        <input type="text" 
+                        <input type="email" 
                                className="form-control" 
                                value={this.state.email}
                                onChange={this.onChangeEmail}
+                               />  
+                    </div>
+                    <div className="form-group">
+                        <label>Password: </label>
+                        <input type="password" 
+                               className="form-control" 
+                               value={this.state.password}
+                               onChange={this.onChangePassword}
                                />  
                     </div>
                     <div className="form-group">
