@@ -1,4 +1,6 @@
-# MERN Stack Bulk Purchase Application
+# bulk_purchase_application
+
+This application is bulk purchase application built using the MERN stack. This assignment was built as a past of DASS Assignment 2. The actual question could be found in the question.pdf folder.
 
 ## Setup
 
@@ -66,3 +68,4 @@ This application is a bulk purchase application.
 It is made for two types of users
 Vendors can create the products and sell them
 Customers can purchase the products and rate annd review them.
+
